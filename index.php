@@ -249,11 +249,6 @@ class Bot {
 		
 	}
 	function syslog_in($data){
-		/* [addr] => 10.159.2.1
-		 * [port] => 42227
-		 * [priority] => 190
-		 * [data] => Nov 29 01:27:42 zeus dhcpd: DHCPREQUEST for 10.159.2.144 from c4:43:8f:45:6b:6b via vlan11
-		 */
 		if($this->state!="in") return;
 
 		$this->tochan($this->syslog_format($data));
