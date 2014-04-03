@@ -1,6 +1,10 @@
 IRC syslog bot
 ==============
 
+Version
+-------
+Version 1.0
+
 Usage
 -----
 
