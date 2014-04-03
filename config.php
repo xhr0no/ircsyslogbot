@@ -1,0 +1,70 @@
+<?php
+# ircsyslogbot - Program to log syslog messages to IRC
+#
+# Copyright (C) 2013,2014 Håkon Struijk Holmen <hawken@thehawken.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+require_once "formatting.php";
+require_once "config.php";
+
+// Where to listen for syslog packets
+$syslog_addr = "127.0.0.1";
+
+// At this point, the code enforces SSL. Would take about 5 minutes to make it choosable if there is demand.
+$irc_host = "irc.my.network.tld";
+$irc_port = 6697;
+$irc_nick = "MyNick";
+$irc_user = "Username";
+$irc_gecos = "Detailed explanation of me being a syslogging bot";
+
+// Oper credentials
+$oper_u = "oper-user";
+$oper_p = "overly complicated oper password";
+// Channel to join
+$chan = "#syslogchannel";
+
+// Bot's own logging verbosity:
+// 0 - fatal			| we have to die because of this
+// 1 - error			| something went wrong
+// 2 - warning			| every time we're in doubt
+// 3 - debug1			| logical messages
+// 4 - debug2			| raw socket comms
+$pri = 3;
+
+// Syslog filter:
+// Anything you edit and return will be changed before entering IRC.
+// Whenever the function returns false, the line will not be sent to IRC.
+// $addr contains the source IP, not hostname.
+function syslog_filter($addr,$port,$prio,$facil,$line){
+
+	// You can filter messages based on metadata...
+	//if($prio=="info" && $facil=="clock") return false;
+	//if($prio=="info" && $facil=="authpriv") return false;
+	//if($prio=="info" && $facil=="local7") return false;	// DHCP server
+	//if($prio=="info" && $facil=="mail") return false;
+	//if($prio=="info" && $facil=="daemon") return false;	// DHCP client and tinc
+
+	// You can filter messages based on their content...
+	// if(preg_match('/1\.2\.3\.4/', $line)) return false;
+
+	// And you can modify the fields if you really want.
+	return array(
+		'addr'=>$addr,
+		'port'=>$port,
+		'prio'=>$prio,
+		'facil'=>$facil,
+		'line'=>$line);
+}
