@@ -52,7 +52,10 @@ class Bot {
 	}
 	function read(){
 		$data = $this->ircsock->read();
-		$from = IRCsock::parse_from($data['from']);
+
+		if(isset($data['from'])) $from = IRCsock::parse_from($data['from']);
+		else $from = false;
+
 		if($data['args'][0] == "PING"){
 			$this->ircsock->pong($data['line']);
 			return;

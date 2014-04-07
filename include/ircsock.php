@@ -47,13 +47,37 @@ class IRCsock {
 		if(empty($str)) return false;
 		mylog(4,"IRC-in:  $str");
 
-		if(!preg_match('/^\:([^ ]+) +([^:]+?)( +\:(.*?))?$/', $str, $m)) return false;
-
-
 		$data = array();
-		$data['from'] = $m[1];
-		$data['args'] = explode(" ",preg_replace('/  +/', ' ', $m[2]));
-		if(isset($m[4])) $data['line'] = $m[4];
+
+		if(substr($str,0,1) == ":"){
+			$space = strpos($str, " ");
+			if($space === false){
+				// From occupies whole line
+				$data['from'] = substr($str,1);
+				return $data;
+			} else {
+				$data['from'] = substr($str,1,$space-1);
+				$str = ltrim(substr($str,$space), " ");
+			}
+		}
+		$data['args'] = array();
+		while(substr($str,0,1) != ":"){
+			$space = strpos($str, " ");
+			if($space === false){
+				// Takes up rest of string
+				$data['args'][] = substr($str, 0);
+				break;
+			} else {
+				$data['args'][] = substr($str,0,$space);
+				$str = ltrim(substr($str, $space), " ");
+				if(strlen($str) == 0) break;
+			}
+		}
+
+		if(substr($str,0,1) == ":"){
+			$data['line'] = substr($str, 1);
+			$str = "";
+		}
 
 		return $data;
 	}
