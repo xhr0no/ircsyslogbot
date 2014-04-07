@@ -33,10 +33,11 @@ class Bot {
 
 	var $chan;
 
-	function __construct($host,$port,$nick,$user,$gecos,$opername,$operpw,$chan){
+	function __construct($host,$port,$nick,$user,$gecos,$opername,$operpw,$chan,$colorful=true){
 		$this->ircsock = new IRCsock($host,$port);
 		$this->state = "unreg";
 
+		$this->colorful = $colorful;
 		$this->nick = $nick;
 		$this->user = $user;
 		$this->gecos = $gecos;
@@ -93,36 +94,26 @@ class Bot {
 		
 		$addr = gethostbyaddr($addr);
 		$addr = fmt::bold($addr.str_repeat(" ", 18-strlen($addr)));
-		// blue = 2;
-		// green = 3;
-		// lightred = 4;
-		// brown = 5;
-		// purple = 6;
-		// orange = 7;
-		// yellow = 8;
-		// lightgreen = 9;
-		// cyan = 10;
-		// lightcyan = 11;
-		// lightblue = 12;
-		// pink = 13;
-		// grey = 14;
-		// lightgrey = 15;
 		$prio = $prio.str_repeat(" ", 8-strlen($prio));
 		$facil = $facil.str_repeat(" ", 8-strlen($facil));
-		$ch = $this->colorhash($facil);
-		$facil = fmt::color($facil,$ch);
-		switch($prio){
-		case "emerg   ": $prio = fmt::color($prio,fmt::black,fmt::yellow);
-		case "alert   ": $prio = fmt::color($prio,fmt::black,fmt::pink);
-		case "critical": $prio = fmt::color($prio,fmt::yellow);
-		case "error   ": $prio = fmt::color($prio,fmt::pink);
-		case "warning ": $prio = fmt::color($prio,fmt::orange);
-		case "notice  ": $prio = fmt::color($prio,fmt::cyan);
-		case "info    ": $prio = fmt::color($prio,fmt::green);
-		case "debug   ": $prio = fmt::color($prio,fmt::lightgrey);
+
+
+		if($this->colorful){
+			$ch = $this->colorhash($facil);
+			$facil = fmt::color($facil,$ch);
+			switch($prio){
+			case "emerg   ": $prio = fmt::color($prio,fmt::black,fmt::yellow);
+			case "alert   ": $prio = fmt::color($prio,fmt::black,fmt::pink);
+			case "critical": $prio = fmt::color($prio,fmt::yellow);
+			case "error   ": $prio = fmt::color($prio,fmt::pink);
+			case "warning ": $prio = fmt::color($prio,fmt::orange);
+			case "notice  ": $prio = fmt::color($prio,fmt::cyan);
+			case "info    ": $prio = fmt::color($prio,fmt::green);
+			case "debug   ": $prio = fmt::color($prio,fmt::lightgrey);
+			}
 		}
+
 		return "$addr [$prio $facil] $line";
-		
 	}
 	function syslog_in($data){
 		if($this->state!="in") return;
