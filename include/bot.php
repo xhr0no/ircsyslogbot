@@ -53,6 +53,10 @@ class Bot {
 	function read(){
 		$data = $this->ircsock->read();
 		$from = IRCsock::parse_from($data['from']);
+		if($data['args'][0] == "PING"){
+			$this->ircsock->pong($data['line']);
+			return;
+		}
 		if($data['args'][0] == '001' && $this->state=="unreg"){
 			$this->state = "unauth";
 			$this->state_unauth();
@@ -136,7 +140,12 @@ class Bot {
 	}
 	function state_unauth(){
 		mylog(3,"IRC bot in state unauth");
-		$this->ircsock->oper($this->opername,$this->operpw);
+		if($this->opername !== false)
+			$this->ircsock->oper($this->opername,$this->operpw);
+		else {
+			$this->state = "unjoined";
+			$this->state_unjoined();
+		}
 	}
 	function state_unreg(){
 		mylog(3,"IRC bot in state unreg");

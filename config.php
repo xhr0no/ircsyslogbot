@@ -19,6 +19,7 @@
 
 // Where to listen for syslog packets
 $syslog_addr = "127.0.0.1";
+$syslog_port = 514;
 
 // At this point, the code enforces SSL. Would take about 5 minutes to make it choosable if there is demand.
 $irc_host = "irc.my.network.tld";
@@ -30,9 +31,11 @@ $irc_gecos = "Detailed explanation of me being a syslogging bot";
 // Make log messages colorful?
 $colorful = true;
 
-// Oper credentials
-$oper_u = "oper-user";
-$oper_p = "overly complicated oper password";
+// Oper credentials. $oper_u = false; to disable
+#$oper_u = "oper-user";
+#$oper_p = "overly complicated oper password";
+$oper_u = false;
+
 // Channel to join
 $chan = "#syslogchannel";
 

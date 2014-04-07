@@ -78,6 +78,9 @@ class IRCsock {
 	function privmsg($to,$line){
 		$this->write("PRIVMSG $to :$line\r\n");
 	}
+	function pong($line){
+		$this->write("PONG :$line\r\n");
+	}
 	static function parse_from($from){
 		if(!preg_match('/^([^\! ]+)\!([^ @]+)@([^ ]+)$/', $from, $m)) return false;
 		$data = array();
