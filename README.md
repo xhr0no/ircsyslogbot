@@ -10,8 +10,6 @@ Usage
 TODO
 ----
 * Enable user to select wether to use SSL or not
-* Make the oper thing selectable
-* Split classes out to more files
 * Privilege dropping
 
 Credits
