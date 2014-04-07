@@ -3,7 +3,7 @@ IRC syslog bot
 
 Version
 -------
-Version 1.0
+Version 1.1
 
 Usage
 -----
@@ -20,3 +20,10 @@ TODO
 * Make the oper thing selectable
 * Split classes out to more files
 * Privilege dropping
+
+
+Credits
+-------
+hawken
+Heretic121
+BluCoders community
