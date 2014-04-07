@@ -250,8 +250,9 @@ class Bot {
 	}
 	function syslog_in($data){
 		if($this->state!="in") return;
-
-		$this->tochan($this->syslog_format($data));
+		$data = $this->syslog_format($data);
+		if($data !== false)
+			$this->tochan($data);
 	}
 
 	function state_in(){
