@@ -24,6 +24,6 @@ TODO
 
 Credits
 -------
-hawken
-Heretic121
-BluCoders community
+* hawken
+* Heretic121
+* BluCoders community
