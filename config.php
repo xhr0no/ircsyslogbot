@@ -27,6 +27,9 @@ $irc_nick = "MyNick";
 $irc_user = "Username";
 $irc_gecos = "Detailed explanation of me being a syslogging bot";
 
+// Make log messages colorful?
+$colorful = true;
+
 // Oper credentials
 $oper_u = "oper-user";
 $oper_p = "overly complicated oper password";
