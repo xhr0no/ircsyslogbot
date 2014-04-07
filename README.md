@@ -9,7 +9,7 @@ Usage
 -----
 
 
-* Edit rsyslog.conf to log to the bot, example: *.* @127.0.0.1
+* Edit rsyslog.conf to log to the bot, example: \*.\* @127.0.0.1
 * Edit config.php to match your network
 * run php bot.php
 
