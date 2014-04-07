@@ -17,9 +17,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-require_once "formatting.php";
-require_once "config.php";
-
 // Where to listen for syslog packets
 $syslog_addr = "127.0.0.1";
 
