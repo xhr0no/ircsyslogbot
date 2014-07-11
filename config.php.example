@@ -21,19 +21,18 @@
 $syslog_addr = "127.0.0.1";
 $syslog_port = 514;
 
-// At this point, the code enforces SSL. Would take about 5 minutes to make it choosable if there is demand.
 $irc_host = "irc.my.network.tld";
-$irc_port = 6697;
+#$irc_port = 6697;
+$irc_port = 6667;
+$irc_ssl = false;
 $irc_nick = "MyNick";
 $irc_user = "Username";
-$irc_gecos = "Detailed explanation of me being a syslogging bot";
+$irc_gecos = "I'm a syslog bot";
 
 // Make log messages colorful?
 $colorful = true;
 
 // Oper credentials. $oper_u = false; to disable
-#$oper_u = "oper-user";
-#$oper_p = "overly complicated oper password";
 $oper_u = false;
 
 // Channel to join
@@ -61,7 +60,7 @@ function syslog_filter($addr,$port,$prio,$facil,$line){
 	//if($prio=="info" && $facil=="daemon") return false;	// DHCP client and tinc
 
 	// You can filter messages based on their content...
-	// if(preg_match('/1\.2\.3\.4/', $line)) return false;
+	if(preg_match('/1\.2\.3\.4/', $line)) return false;
 
 	// And you can modify the fields if you really want.
 	return array(
