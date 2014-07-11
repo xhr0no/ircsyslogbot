@@ -28,7 +28,7 @@ require_once "$path/config.php";
 
 
 $sl = new SyslogListener($syslog_addr, $syslog_port);
-$irc = new Bot($irc_host,$irc_port,$irc_nick,$irc_user,$irc_gecos,$oper_u, $oper_p,$chan,$colorful);
+$irc = new Bot($irc_host,$irc_port, $irc_ssl, $irc_nick,$irc_user,$irc_gecos,$oper_u, $oper_p,$chan,$colorful);
 $sel = new Select(array($irc->getsock(),$sl->sock));
 
 while(!$sel->eof()){

@@ -21,8 +21,12 @@ class IRCsock {
 	var $sock;
 	var $host;
 	var $port;
-	function __construct($host,$port){
-		$this->sock = stream_socket_client("ssl://$host:$port")
+	function __construct($host,$port,$ssl){
+		if($ssl)
+			$proto = "ssl://";
+		else
+			$proto = "tcp://";
+		$this->sock = stream_socket_client("$proto$host:$port")
 			or die("TCP sockets unavail :(\n");
 		$this->host = $host;
 		$this->port = $port;

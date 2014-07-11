@@ -33,8 +33,8 @@ class Bot {
 
 	var $chan;
 
-	function __construct($host,$port,$nick,$user,$gecos,$opername,$operpw,$chan,$colorful=true){
-		$this->ircsock = new IRCsock($host,$port);
+	function __construct($host,$port,$ssl,$nick,$user,$gecos,$opername,$operpw,$chan,$colorful=true){
+		$this->ircsock = new IRCsock($host,$port,$ssl);
 		$this->state = "unreg";
 
 		$this->colorful = $colorful;
